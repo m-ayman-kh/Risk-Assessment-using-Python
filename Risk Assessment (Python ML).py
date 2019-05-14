@@ -12,8 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 
 sns.set(color_codes=True)
-% matplotlib
-inline
+% matplotlib inline
 
 df = pd.read_csv("challengeTrain.csv", skipinitialspace=True)
 print(df.shape)
@@ -74,34 +73,10 @@ df["custID_dup"].value_counts()
 
 df.loc[df['custID_dup'] == 4]
 
-The
-above
-rows -as an
-exmaple - shows
-identical
-rows
-with differences in only one column.
+# The above rows -as an exmaple - shows identical rows with differences in only one column.
 
-Duplications
-will
-be
-removed
-further
-more
-by
-ignoring
-variations in the < b > < i > channel < / i > < / b > column, since - due
-to
-miscommunications - the
-same
-customer
-could
-have
-been
-contaced
-by
-multiple
-persons
+# Duplications will be removed further more by ignoring variations in the < b > < i > channel < / i > < / b > column, 
+# since - due to miscommunications - the same customer could have been contaced by multiple persons
 
 grouped = df.columns.drop("channel")
 df.drop_duplicates(subset=grouped, inplace=True)
@@ -233,22 +208,13 @@ df.salary.isnull().sum(axis=0)
 
 ## <span style="color:blue"><i>age</i> column</span> compute missing values
 
-Since
-it
-'s normal to increase have higher salary with older age, a boxplot will be plotted to see variance of age with salary.
-It
-'s apparent that the mean age of each salary group increases with time.
+# Since it's normal to increase have higher salary with older age, a boxplot will be plotted to see variance of age with salary.
+# It's apparent that the mean age of each salary group increases with time.
 
 plt.subplots(figsize=(15, 10))
 sns.boxplot(x='salary', y='age', data=df)
 
-The
-missing
-NA
-will
-be
-replaced
-with median(because there are a lot of outliers in salaries, especially in the lower salaries)
+# The missing NA will be replaced with median(because there are a lot of outliers in salaries, especially in the lower salaries)
 
 df.loc[df.age.isnull(), 'age'] = df.groupby('salary').age.transform('median')
 
